@@ -448,3 +448,57 @@ function twentytwelve_customize_preview_js() {
 	wp_enqueue_script( 'twentytwelve-customizer', get_template_directory_uri() . '/js/theme-customizer.js', array( 'customize-preview' ), '20120827', true );
 }
 add_action( 'customize_preview_init', 'twentytwelve_customize_preview_js' );
+
+
+function get_second_nav ($post){
+
+	echo "<div class='tabbable' style='margin-bottom: 2px;'>";
+	echo "<ul class='nav nav-tabs' style='margin-top: 2px;'>";
+
+    // 把该页面下的所有子页面的链接都显示在文章上面
+	// 如果没有子页面，就显示和该也面同级的页面 ，顶级页面除外
+	$pid = $post->ID; //该页面ID
+	$parent_id = $post->post_parent; //父页面ID
+	$args = array(
+		'post_type' => 'page',
+		'post_parent' => $pid,
+		'order' => 'ASC'
+		);
+	$children_array = get_children($args);  //儿子页面的ID
+
+	// 判断，如果没有子页面，并且也不是一个顶级页面  则显示同级页面
+	if (! $children_array && $parent_id != 0) {
+		$args = array(
+			'post_type' => 'page',
+			'post_parent' => $parent_id,
+			'order' => 'ASC'
+		);
+		$children_array = get_children($args);
+	}
+	foreach($children_array as $post) {
+		$flag = $pid == $post->ID ? 'active':'';
+		echo "<li class = '$flag'><a href='$post->guid'>$post->post_title</a></li>";
+	} 
+		echo "</ul>";
+	echo "</div>";
+
+}
+
+function get_now_place ($post){
+	echo "<div class='alert alert-success'>";
+	echo "当前位置: <a href='".get_option('home')."'/>首页</a> &gt;&gt;";
+
+	if ($post->post_parent) // if have parent pages
+	{
+		$ancestors=get_post_ancestors($post->ID);// get parent's page ID to an array
+		$root=count($ancestors)-1; // get top parent's page ID index at array
+		for($i=$root;$i>-1;$i--) // output the array with links for all parent pages
+		{
+			echo "<a href='".get_page_link($ancestors[$i])."'>".get_the_title($ancestors[$i])."</a> &gt;&gt";
+		}
+	}
+	echo the_title();
+	echo "	</div><!-- alert alert-info-->";
+}
+
+

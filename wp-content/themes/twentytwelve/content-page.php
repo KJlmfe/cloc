@@ -7,11 +7,15 @@
  * @since Twenty Twelve 1.0
  */
 ?>
+	<?php get_second_nav($post) ?>
 
-	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-		<header class="entry-header">
-			<h1 class="entry-title"><?php the_title(); ?></h1>
-		</header>
+	<?php get_now_place($post) ?>
+
+		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+
+	<!--<header class="entry-header"> -->
+	<!--- 	<h1 class="entry-title"><?php the_title(); ?></h1>  -->
+	<!-- </header> -->
 
 		<div class="entry-content">
 			<?php the_content(); ?>
