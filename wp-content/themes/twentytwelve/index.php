@@ -16,51 +16,67 @@
 
 get_header(); ?>
 
-	<div id="primary" class="site-content">
-		<div id="content" role="main">
-		<?php if ( have_posts() ) : ?>
+<div class="row">			
 
-			<?php /* Start the Loop */ ?>
-			<?php while ( have_posts() ) : the_post(); ?>
-				<?php get_template_part( 'content', get_post_format() ); ?>
-			<?php endwhile; ?>
+	<div id="imgslide" class="carousel slide span8">
+                <div class="carousel-inner">
+                  <div class="item active left">
+                    <img src="img/01.jpg" alt="">
+                    <div class="carousel-caption">
+                      <h4>First Thumbnail label</h4>
+                    </div>
+                  </div>
+                  <div class="item next left">
+                    <img src="img/02.jpg" alt="">
+                    <div class="carousel-caption">
+                      <h4>Second Thumbnail label</h4>
+                      <p>ullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <img src="img/03.jpg" alt="">
+                    <div class="carousel-caption">
+                      <h4>Third Thumbnail label</h4>
+                      <p>Cras justoid nibh ultricies vehicula ut id elit.</p>
+                    </div>
+                  </div>
+                </div>
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+              </div>
 
-			<?php twentytwelve_content_nav( 'nav-below' ); ?>
+<script type="text/javacript">
+	$('.carousel').carousel();
+</script>
 
-		<?php else : ?>
+<!--************新闻中心***************-->
+<div id="news" class="span4"> 
+	<ul class="nav nav-list" style="list-style: disc;">
+		<li class="nav-header head">
+			<a href = "<?=get_category_link(get_cat_ID("新闻中心"))?>" >新闻中心 News <span class = "more">更多</span></a>
+		</li>
+		<li class="divider"></li>
+<?php 
+	$args = array(
+	    'posts_per_page' => 7,
+	    'paged' => 1,
+	    'category_name' => "新闻中心",
+	);
+	$query = new WP_Query($args);
+	$recent_posts = wp_get_recent_posts($query);
+	while($query->have_posts()):
+	    $query->next_post();
+	    $post_id = $query->post->ID;
+	    $post_title = urldecode($query->post->post_name);
+	    $post_time = $query->post->post_date;
+?>
+	<li><a href = "<?=get_permalink($post_id);?>" title = "<?=$post_title;?>"><?=$post_title;?></a></li>
+		<li class="divider"></li>
+<?php endwhile; ?>
+	</ul>
+</div><!-- # news-->
 
-			<article id="post-0" class="post no-results not-found">
+</div> <!--- row -->
 
-			<?php if ( current_user_can( 'edit_posts' ) ) :
-				// Show a different message to a logged-in user who can add posts.
-			?>
-				<header class="entry-header">
-					<h1 class="entry-title"><?php _e( 'No posts to display', 'twentytwelve' ); ?></h1>
-				</header>
-
-				<div class="entry-content">
-					<p><?php printf( __( 'Ready to publish your first post? <a href="%s">Get started here</a>.', 'twentytwelve' ), admin_url( 'post-new.php' ) ); ?></p>
-				</div><!-- .entry-content -->
-
-			<?php else :
-				// Show the default message to everyone else.
-			?>
-				<header class="entry-header">
-					<h1 class="entry-title"><?php _e( 'Nothing Found', 'twentytwelve' ); ?></h1>
-				</header>
-
-				<div class="entry-content">
-					<p><?php _e( 'Apologies, but no results were found. Perhaps searching will help find a related post.', 'twentytwelve' ); ?></p>
-					<?php get_search_form(); ?>
-				</div><!-- .entry-content -->
-			<?php endif; // end current_user_can() check ?>
-
-			</article><!-- #post-0 -->
-
-		<?php endif; // end have_posts() check ?>
-
-		</div><!-- #content -->
-	</div><!-- #primary -->
-
-<?php get_sidebar(); ?>
+<?php //get_sidebar(); ?>
 <?php get_footer(); ?>

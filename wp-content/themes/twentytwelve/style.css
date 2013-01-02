@@ -1727,3 +1727,33 @@ img#wpstats {
 		margin-left: 3.57142857rem;
 	}
 }
+
+/*  ----- customer ----- */
+#news{
+	margin-left:40px;
+}
+.head 
+{
+    z-index:999;
+    padding:6px;
+    background-color:#eee;
+    margin-top:1px;
+    height:24px;
+}
+.head a{
+    margin:0 7px;
+    font-size:14px;
+	color:black;
+}
+.head .more{
+    color:#4f94cd;
+    font-size:13px;
+    clear:both;
+    position:relative;
+    *top:-22px;
+    float:right;
+    display:block;
+}
+
+#imgslide {
+}

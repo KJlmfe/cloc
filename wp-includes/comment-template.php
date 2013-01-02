@@ -1562,7 +1562,7 @@ function comment_form( $args = array(), $post_id = null ) {
 							<?php echo apply_filters( 'comment_form_logged_in', $args['logged_in_as'], $commenter, $user_identity ); ?>
 							<?php do_action( 'comment_form_logged_in_after', $commenter, $user_identity ); ?>
 						<?php else : ?>
-							<?php echo $args['comment_notes_before']; ?>
+							<?php //echo $args['comment_notes_before']; ?>
 							<?php
 							do_action( 'comment_form_before_fields' );
 							foreach ( (array) $args['fields'] as $name => $field ) {
@@ -1572,7 +1572,7 @@ function comment_form( $args = array(), $post_id = null ) {
 							?>
 						<?php endif; ?>
 						<?php echo apply_filters( 'comment_form_field_comment', $args['comment_field'] ); ?>
-						<?php echo $args['comment_notes_after']; ?>
+						<?php //echo $args['comment_notes_after']; ?>
 						<p class="form-submit">
 							<input name="submit" type="submit" id="<?php echo esc_attr( $args['id_submit'] ); ?>" value="<?php echo esc_attr( $args['label_submit'] ); ?>" />
 							<?php comment_id_fields( $post_id ); ?>
