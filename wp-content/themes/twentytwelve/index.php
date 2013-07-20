@@ -53,7 +53,7 @@ get_header(); ?>
 <div id="news" class="span4"> 
 	<ul class="nav nav-list" style="list-style: disc;">
 		<li class="nav-header head">
-			<a href = "<?=get_category_link(get_cat_ID("新闻中心"))?>" >新闻中心 News <span class = "more">更多</span></a>
+			<a href = "<?php echo get_category_link(get_cat_ID("新闻中心"))?>" >新闻中心 News <span class = "more">更多</span></a>
 		</li>
 		<li class="divider"></li>
 <?php 
@@ -70,7 +70,7 @@ get_header(); ?>
 	    $post_title = urldecode($query->post->post_name);
 	    $post_time = $query->post->post_date;
 ?>
-	<li><a href = "<?=get_permalink($post_id);?>" title = "<?=$post_title;?>"><?=$post_title;?></a></li>
+	<li><a href = "<?php echo get_permalink($post_id);?>" title = "<?php echo $post_title;?>"><?php echo $post_title;?></a></li>
 		<li class="divider"></li>
 <?php endwhile; ?>
 	</ul>
